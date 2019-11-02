@@ -1,10 +1,10 @@
 package com.eazy.wegmansapp;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.protocol.HTTP;
-import org.json.JSONArray;
-
 import java.net.URI;
-import javax.net.ssl.HttpsURLConnection;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.util.EntityUtils;
 
 public class Wegmans_API_Search {
     private String name;
