@@ -86,7 +86,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             //Jump to specific recipe page when click
             Recipe recipe = recipesList.get(position);
             Intent intent = new Intent(mContext, RecipeDetailsActivity.class);
-            intent.putExtra("add mode", recipe);
+            intent.putExtra("Recipe", recipe);
             mainActivity.startActivity(intent);
         }
     }
