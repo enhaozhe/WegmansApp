@@ -17,12 +17,20 @@ public class Recipe implements Serializable {
     public ArrayList<String> nutrition;
     public ArrayList<Item> ingredients;
     public String instruction;
+    public String image;
 
     public Recipe(int ID, String name) {
         this.ID = ID;
         this.name = name;
         nutrition = new ArrayList<>();
         ingredients = new ArrayList<>();
+
+        int x = ID;
+
+        while(x >= 10)
+            x /= 10;
+
+        image = "https://www.wegmans.com/content/dam/wegmans/recipes/" + x + "/" + ID + ".jpg";
     }
 
 }
