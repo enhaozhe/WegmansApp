@@ -32,4 +32,19 @@ public class Recipe implements Serializable {
         image = "https://www.wegmans.com/content/dam/wegmans/recipes/" + x + "/" + ID + ".jpg";
     }
 
+    public String getNutrition() {
+        String ret = "";
+        for(String i : nutrition){
+            ret += i == nutrition.get(nutrition.size()-1) ? i : i+", ";
+        }
+        return ret;
+    }
+
+    public String getIngredients() {
+        String ret = "";
+        for(Item i : ingredients){
+            ret += i == ingredients.get(ingredients.size()-1) ? i.name : i.name+", ";
+        }
+        return ret;
+    }
 }
