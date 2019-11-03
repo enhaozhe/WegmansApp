@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.concurrent.ExecutionException;
 
 public class Price_API_Get {
     private String sku;
@@ -27,7 +28,13 @@ public class Price_API_Get {
     public void search() {
         String url = "https://api.wegmans.io/products/"+sku+"/prices/93?api-version=2018-10-18";
 
-        new AsyncHttpTask().execute(url);
+        try {
+            new AsyncHttpTask().execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
