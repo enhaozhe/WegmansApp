@@ -14,7 +14,7 @@ public class Recipe implements Serializable {
     public ArrayList<Item> ingredients;
     public String instruction="";
     public String image;
-    public String wellness;
+    public String wellness="";
 
     public Recipe(int ID, String name) {
         this.ID = ID;
