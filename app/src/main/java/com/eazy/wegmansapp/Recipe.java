@@ -1,8 +1,5 @@
 package com.eazy.wegmansapp;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -33,17 +30,17 @@ public class Recipe implements Serializable {
     }
 
     public String getNutrition() {
-        String ret = "";
+        String ret = "Nutrition Facts \n";
         for(String i : nutrition){
-            ret += i == nutrition.get(nutrition.size()-1) ? i : i+", ";
+            ret += i + "\n";
         }
         return ret;
     }
 
     public String getIngredients() {
-        String ret = "";
+        String ret = "Ingredients: \n";
         for(Item i : ingredients){
-            ret += i == ingredients.get(ingredients.size()-1) ? i.name : i.name+", ";
+            ret += "# " + ((i.quantity.equals("null"))? "" : i.quantity) + " " + i.name + "\n";
         }
         return ret;
     }

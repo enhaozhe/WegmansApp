@@ -6,9 +6,10 @@ public class Item implements Serializable {
 
     public int ID;
     public String name;
-    public String quanntity;
+    public String quantity;
     public String image;
     public String description;
+    public double price;
 
     public Item(String name){
         ID = -1;
@@ -18,13 +19,7 @@ public class Item implements Serializable {
     public Item(int ID, String name, String quantity){
         this.ID = ID;
         this.name = name;
-    }
-
-    public Item(int ID, String name,String image,String description){
-        this.ID = ID;
-        this.name = name;
-        this.image = image;
-        this.description = description;
+        this.quantity = quantity;
     }
 
     public boolean isProduct(){

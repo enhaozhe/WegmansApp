@@ -140,12 +140,12 @@ public class Wegmans_API_Get_Recipe {
 //                    "protein": 60
             recipe.nutrition.add("Serving Size: " + nutri.optString("servingSize"));
             recipe.nutrition.add("Calories: " + nutri.optString("calories"));
-            recipe.nutrition.add("Fat: " + nutri.optString("fat"));
-            recipe.nutrition.add("Saturated Fat: " + nutri.optString("saturatedFat"));
-            recipe.nutrition.add("Cholesterol: " + nutri.optString("cholesterol"));
-            recipe.nutrition.add("Sodium: " + nutri.optString("sodium"));
-            recipe.nutrition.add("Carbohydrate: " + nutri.optString("carbohydrates"));
-            recipe.nutrition.add("Protein: " + nutri.optString("protein"));
+            recipe.nutrition.add("Fat: " + nutri.optString("fat") + "g");
+            recipe.nutrition.add("Saturated Fat: " + nutri.optString("saturatedFat") + "g");
+            recipe.nutrition.add("Cholesterol: " + nutri.optString("cholesterol") + "mg");
+            recipe.nutrition.add("Sodium: " + nutri.optString("sodium") + "mg");
+            recipe.nutrition.add("Carbohydrate: " + nutri.optString("carbohydrates") + "g");
+            recipe.nutrition.add("Protein: " + nutri.optString("protein") + "g");
            // Log.d("TAG",recipe.nutrition.get(0));
             JSONArray ingredients = new JSONArray(response.get("ingredients").toString());
            // Log.d("TAG",ingredients.toString());
