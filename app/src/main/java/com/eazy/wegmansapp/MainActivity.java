@@ -77,26 +77,23 @@ public class MainActivity extends AppCompatActivity {
        if(checker == true){
            recipesList.clear();
            checker=false;
-           count=0;
        }
-       count++;
         inputFood = food.getText().toString();
         if(inputFood != ""){
             search = new Wegmans_API_Search(inputFood, MainActivity.this);
              search.search();
+             if(recipesList.size()==0){
+                 Toast toast = Toast.makeText(getApplicationContext(), "No Results Found", Toast.LENGTH_SHORT);
+                 toast.show();
+                 checker=true;
+                 return;
+             }
             if(recipesList.size() > 0) {
                 Log.d("mmTAG", "size = " + recipesList.size() + "");
                 adapter = new RecyclerViewAdapter(recipesList, this, MainActivity.this);
                 recyclerView.setAdapter(adapter);
                 checker=true;
             }
-            if(recipesList.size()==0 && count==2){
-                Toast toast = Toast.makeText(getApplicationContext(), "No Results Found", Toast.LENGTH_SHORT);
-                toast.show();
-                checker=true;
-                return;
-            }
-
         }else{
             Toast toast = Toast.makeText(getApplicationContext(), "No Results Found", Toast.LENGTH_SHORT);
             toast.show();
