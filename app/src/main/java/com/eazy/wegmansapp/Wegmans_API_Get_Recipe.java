@@ -16,13 +16,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Wegmans_API_Get_Recipes{
+public class Wegmans_API_Get_Recipe {
     private int id;
     private String TAG = "mTAG";
     private Recipe recipe;
     private String response;
 
-    Wegmans_API_Get_Recipes(Recipe r){
+    Wegmans_API_Get_Recipe(Recipe r){
         recipe = r;
         id = r.ID;
     }
@@ -109,13 +109,18 @@ public class Wegmans_API_Get_Recipes{
             recipe.servings = servings.optString("produces");
 
             JSONObject preparationTime = response.optJSONObject("preparationTime");
-            recipe.preparationTime = preparationTime.optInt("min");
+            int mins = preparationTime.optInt("min");
+            int hrs = mins / 60;
+            mins = mins % 60;
+            recipe.preparationTime = "Preparation Time: " + hrs + " hours " + mins + "mins";
 
             JSONObject cookingTime = response.optJSONObject("cookingTime");
-            recipe.cookingTime = cookingTime.optInt("min");
+            mins = cookingTime.optInt("min");
+            hrs = mins / 60;
+            mins = mins % 60;
+            recipe.cookingTime = "Cooking Time: " + hrs + " hours " + mins + "mins";
 
             JSONObject nutri = response.optJSONObject("nutrition");
-            recipe.servingSize = nutri.optString("servingSize");
 //                    "sodium": 1030,
 //                    "carbohydrates": 20,
 //                    "cholesterol": 155,
@@ -123,6 +128,7 @@ public class Wegmans_API_Get_Recipes{
 //                    "fat": 25,
 //                    "calories": 550,
 //                    "protein": 60
+            recipe.nutrition.add("Serving Size: "+nutri.optString("servingSize"));
             recipe.nutrition.add("Calories: "+nutri.optString("calories"));
             recipe.nutrition.add("Fat: "+nutri.optString("fat"));
             recipe.nutrition.add("Saturated Fat: "+nutri.optString("saturatedFat"));
@@ -134,13 +140,20 @@ public class Wegmans_API_Get_Recipes{
             JSONArray ingredients = response.optJSONArray("ingredient");
             for(int i = 0; i < ingredients.length(); i++){
                 JSONObject obj = ingredients.getJSONObject(i);
+                String name = obj.optString("name");
+
                 if(obj.optString("type").equals("ingredients")){
-                    recipe.ingredients.add(new Item(obj.optString("name")));
-                }
-                else if(obj.optString("type").equals("product")){
-                    recipe.ingredients.add(new Item(obj.optInt("sku"),obj.optString("name")));
+                    recipe.ingredients.add(new Item(name));
+                } else if(obj.optString("type").equals("product")){
+                    int sku = obj.optInt("sku");
+                    String quantity = obj.optJSONObject("quantity").optString("text");
+                    recipe.ingredients.add(new Item(sku, name, quantity));
                 }
             }
+
+            JSONObject instructions = response.optJSONObject("instructions");
+
+            recipe.instruction = instructions.optString("directions");
 
         }catch (JSONException e){
             e.printStackTrace();
