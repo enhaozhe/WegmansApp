@@ -18,12 +18,14 @@ import java.io.InputStreamReader;
 
 public class Product_API_Get {
     private String sku;
+    private Item item;
     private String TAG = "mTAG";
-    Product_API_Get(String k){
-        sku=k;
+    public Product_API_Get(Item item){
+        this.item = item;
+        sku = String.valueOf(item.ID);
     }
     public void search() {
-        String url = "https://api.wegmans.io/products/"+sku+"?api-version=2018-10-18";
+        String url = "https://api.wegmans.io/products/" + sku + "?api-version=2018-10-18";
 
         new AsyncHttpTask().execute(url);
     }
@@ -95,29 +97,22 @@ public class Product_API_Get {
     }
 
         private Item parseResult(String result) {
-            String name="";
-            int id=0;
-            String image="";
-            String descr="";
+
         try{
             JSONObject response = new JSONObject(result);
-            //JSONArray posts = response.optJSONArray("");
-             id = Integer.parseInt(response.get("sku").toString());
-            Log.d("mTAG", id+"");
-             name=response.get("name").toString();
-            Log.d("mTAG", name);
-            JSONObject d=new JSONObject(response.get("descriptions").toString());
-            descr=d.get("consumer").toString();
-            Log.d("mTAG",descr);
-            JSONArray link=new JSONArray(response.get("tradeIdentifiers").toString());
-            JSONObject post= link.getJSONObject(0);
-            JSONArray ll=new JSONArray(post.get("images").toString());
-            image= ll.getString(0);
-           Log.d("mTAG",image);
-           return new Item(id,name,image,descr);
-        }catch (JSONException e){
+            JSONObject d = new JSONObject(response.get("descriptions").toString());
+            String description = d.get("consumer").toString();
+
+            JSONArray link = new JSONArray(response.get("tradeIdentifiers").toString());
+            JSONObject post = link.getJSONObject(0);
+            JSONArray ll = new JSONArray(post.get("images").toString());
+            String image = ll.getString(0);
+
+            item.description = description;
+            item.image = image;
+        }catch(JSONException e){
             e.printStackTrace();
         }
-        return new Item(id,name,image,descr);
+        return item;
     }
-    }
+}

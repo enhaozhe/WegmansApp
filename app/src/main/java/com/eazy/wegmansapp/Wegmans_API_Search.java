@@ -32,7 +32,6 @@ public class Wegmans_API_Search {
         String url = "https://api.wegmans.io/meals/recipes/search?query=" + query + "&api-version=2018-10-18";
 
         new AsyncHttpTask().execute(url);
-
     }
 
     public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {

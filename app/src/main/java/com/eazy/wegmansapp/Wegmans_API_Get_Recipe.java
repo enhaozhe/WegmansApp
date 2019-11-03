@@ -53,7 +53,6 @@ public class Wegmans_API_Get_Recipe {
                 /* Make http request call */
                 HttpResponse httpResponse = httpclient.execute(httpGet);
 
-
                 int statusCode = httpResponse.getStatusLine().getStatusCode();
                 Log.d(TAG, statusCode+"");
                 /* 200 represents HTTP OK */
@@ -105,20 +104,23 @@ public class Wegmans_API_Get_Recipe {
 
         try{
             JSONObject response = new JSONObject(result);
-            JSONObject servings = response.optJSONObject("servings");
-            recipe.servings = servings.optString("produces");
+            recipe.servings = response.optJSONObject("servings").optString("produces");
 
-            JSONObject preparationTime = response.optJSONObject("preparationTime");
-            int mins = preparationTime.optInt("min");
+            int mins = response.optJSONObject("preparationTime").optInt("min");
             int hrs = mins / 60;
             mins = mins % 60;
-            recipe.preparationTime = "Preparation Time: " + hrs + " hours " + mins + "mins";
+            if( hrs != 0 )
+                recipe.preparationTime = "Preparation Time: " + hrs + " hours " + mins + "mins";
+            else
+                recipe.preparationTime = "Preparation Time: " + mins + "mins";
 
-            JSONObject cookingTime = response.optJSONObject("cookingTime");
-            mins = cookingTime.optInt("min");
+            mins = response.optJSONObject("cookingTime").optInt("min");
             hrs = mins / 60;
             mins = mins % 60;
-            recipe.cookingTime = "Cooking Time: " + hrs + " hours " + mins + "mins";
+            if( hrs != 0 )
+                recipe.cookingTime = "Cooking Time: " + hrs + " hours " + mins + "mins";
+            else
+                recipe.cookingTime = "Cooking Time: " + mins + "mins";
 
             JSONObject nutri = response.optJSONObject("nutrition");
 //                    "sodium": 1030,
@@ -128,14 +130,14 @@ public class Wegmans_API_Get_Recipe {
 //                    "fat": 25,
 //                    "calories": 550,
 //                    "protein": 60
-            recipe.nutrition.add("Serving Size: "+nutri.optString("servingSize"));
-            recipe.nutrition.add("Calories: "+nutri.optString("calories"));
-            recipe.nutrition.add("Fat: "+nutri.optString("fat"));
-            recipe.nutrition.add("Saturated Fat: "+nutri.optString("saturatedFat"));
-            recipe.nutrition.add("Cholesterol: "+nutri.optString("cholesterol"));
-            recipe.nutrition.add("Sodium: "+nutri.optString("sodium"));
-            recipe.nutrition.add("Carbohydrate: "+nutri.optString("carbohydrates"));
-            recipe.nutrition.add("Protein: "+nutri.optString("protein"));
+            recipe.nutrition.add("Serving Size: " + nutri.optString("servingSize"));
+            recipe.nutrition.add("Calories: " + nutri.optString("calories"));
+            recipe.nutrition.add("Fat: " + nutri.optString("fat"));
+            recipe.nutrition.add("Saturated Fat: " + nutri.optString("saturatedFat"));
+            recipe.nutrition.add("Cholesterol: " + nutri.optString("cholesterol"));
+            recipe.nutrition.add("Sodium: " + nutri.optString("sodium"));
+            recipe.nutrition.add("Carbohydrate: " + nutri.optString("carbohydrates"));
+            recipe.nutrition.add("Protein: " + nutri.optString("protein"));
 
             JSONArray ingredients = response.optJSONArray("ingredient");
             for(int i = 0; i < ingredients.length(); i++){
@@ -151,9 +153,7 @@ public class Wegmans_API_Get_Recipe {
                 }
             }
 
-            JSONObject instructions = response.optJSONObject("instructions");
-
-            recipe.instruction = instructions.optString("directions");
+            recipe.instruction = response.optJSONObject("instructions").optString("directions");
 
         }catch (JSONException e){
             e.printStackTrace();
