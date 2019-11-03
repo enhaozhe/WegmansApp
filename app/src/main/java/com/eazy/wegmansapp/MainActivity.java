@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "start");
         search = new Wegmans_API_Search("beef");
         search.search();
-        search2 = new Wegmans_API_Get_Recipes();
-        search2.search();
+//        search2 = new Wegmans_API_Get_Recipes();
+//        search2.search();
     }
 
 

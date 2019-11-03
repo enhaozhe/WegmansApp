@@ -19,7 +19,7 @@ import org.json.JSONObject;
 public class Wegmans_API_Search {
     private String query;
     private String TAG = "mTAG";
-    public ArrayList<String>
+
 
     Wegmans_API_Search(String q){
         query = q;
