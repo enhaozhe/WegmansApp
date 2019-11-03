@@ -118,17 +118,17 @@ public class Wegmans_API_Get_Recipe {
             int hrs = mins / 60;
             mins = mins % 60;
             if( hrs != 0 )
-                recipe.preparationTime = "Preparation Time: " + hrs + " hours " + mins + "mins";
+                recipe.preparationTime = "Preparation Time: " + hrs + " hours " + mins + " mins";
             else
-                recipe.preparationTime = "Preparation Time: " + mins + "mins";
+                recipe.preparationTime = "Preparation Time: " + mins + " mins";
            // Log.d("TAG",recipe.preparationTime);
             mins = response.optJSONObject("cookingTime").optInt("min");
             hrs = mins / 60;
             mins = mins % 60;
             if( hrs != 0 )
-                recipe.cookingTime = "Cooking Time: " + hrs + " hours " + mins + "mins";
+                recipe.cookingTime = "Cooking Time: " + hrs + " hours " + mins + " mins";
             else
-                recipe.cookingTime = "Cooking Time: " + mins + "mins";
+                recipe.cookingTime = "Cooking Time: " + mins + " mins";
             Log.d("TAG",recipe.cookingTime);
             JSONObject nutri = response.optJSONObject("nutrition");
 //                    "sodium": 1030,
