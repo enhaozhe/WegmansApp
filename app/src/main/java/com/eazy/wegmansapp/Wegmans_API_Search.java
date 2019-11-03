@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -14,7 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Wegmans_API_Search{
+public class Wegmans_API_Search {
     private String query;
     private String TAG = "mTAG";
 
@@ -43,7 +45,7 @@ public class Wegmans_API_Search{
                 HttpGet httpGet = new HttpGet(params[0]);
 
                 /* optional request header */
-                httpGet.setHeader("Subscription-Key", "cb1a580909ae4a67ba15db7e5d78400b");
+                httpGet.setHeader("Subscription-Key", "67a0d0770def4b969250ffa89aa08180");
 
                 /* Make http request call */
                 HttpResponse httpResponse = httpclient.execute(httpGet);
@@ -59,6 +61,7 @@ public class Wegmans_API_Search{
                     inputStream = httpResponse.getEntity().getContent();
 
                     String response = convertInputStreamToString(inputStream);
+                    parseResult(response);
 
                     Log.d(TAG, response);
                     result = 1; // Successful
@@ -96,22 +99,26 @@ public class Wegmans_API_Search{
         return result;
     }
 
-    private void parseResult(String result) {
+    private ArrayList<Recipe> parseResult(String result) {
+
+        ArrayList<Recipe> list = new ArrayList<>();
 
         try{
             JSONObject response = new JSONObject(result);
+            JSONArray posts = response.optJSONArray("results");
 
-            JSONArray posts = response.optJSONArray("posts");
+            for(int i = 0; i < posts.length(); ++i){
+                JSONObject obj = posts.optJSONObject(i);
 
+                int ID = obj.optInt("id");
+                String name = obj.optString("name");
 
-            for(int i=0; i< posts.length();i++ ){
-                JSONObject post = posts.optJSONObject(i);
-                String title = post.optString("title");
-
+                list.add(new Recipe(ID, name));
             }
-
         }catch (JSONException e){
             e.printStackTrace();
         }
+
+        return list;
     }
 }

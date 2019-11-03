@@ -9,7 +9,9 @@ public class Recipe {
 
     public int ID;
     public String name;
-    public int timeToMake;
+    public int preparationTime;
+    public int cookingTime;
+    public ArrayList<String> nutrition;
     public ArrayList<Item> ingredients;
     public String instruction;
 
