@@ -29,7 +29,7 @@ public class Wegmans_API_Get_Recipe {
 
     public void search()
     {
-        String url = "https://api.wegmans.io/meals/recipes/"+id+"?api-version=2018-10-18";
+        String url = "https://api.wegmans.io/meals/recipes/"+id+"?api-version=2018-10-18&results=50";
 
         new AsyncHttpTask().execute(url);
     }
