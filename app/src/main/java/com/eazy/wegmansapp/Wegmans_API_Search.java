@@ -14,11 +14,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Wegmans_API_Get {
+public class Wegmans_API_Search {
     private String query;
     private String TAG = "mTAG";
 
-    Wegmans_API_Get(String q){
+    Wegmans_API_Search(String q){
         query = q;
     }
 

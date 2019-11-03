@@ -16,10 +16,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class Product_API_Search {
+public class Product_API_Get {
     private String sku;
     private String TAG = "mTAG";
-    Product_API_Search(String k){
+    Product_API_Get(String k){
         sku=k;
     }
     public void search() {
