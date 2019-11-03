@@ -8,13 +8,17 @@ import android.util.Log;
 public class MainActivity extends AppCompatActivity {
     private String TAG = "mTAG";
     private Wegmans_API_Search search;
+    private Wegmans_API_Get_Recipes search2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       Price_API_Get x=new Price_API_Get("151853");
-        x.search();
+        Log.d(TAG, "start");
+        search = new Wegmans_API_Search("beef");
+        search.search();
+//        search2 = new Wegmans_API_Get_Recipes();
+//        search2.search();
     }
 
 
