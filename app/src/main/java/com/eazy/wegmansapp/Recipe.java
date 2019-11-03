@@ -35,7 +35,7 @@ public class Recipe implements Serializable {
     public String getNutrition() {
         String ret = "";
         for(String i : nutrition){
-            ret += i == nutrition.get(nutrition.size()-1) ? i : i+", ";
+            ret += i + "\n";
         }
         return ret;
     }
