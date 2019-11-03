@@ -11,6 +11,8 @@ public class Recipe {
     public String name;
     public int preparationTime;
     public int cookingTime;
+    public String servings;
+    public String servingSize;
     public ArrayList<String> nutrition;
     public ArrayList<Item> ingredients;
     public String instruction;
@@ -18,6 +20,8 @@ public class Recipe {
     public Recipe(int ID, String name) {
         this.ID = ID;
         this.name = name;
+        nutrition = new ArrayList<>();
+        ingredients = new ArrayList<>();
     }
 
 }

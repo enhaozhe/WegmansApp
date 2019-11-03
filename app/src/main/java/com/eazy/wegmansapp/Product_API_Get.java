@@ -19,99 +19,101 @@ import java.io.InputStreamReader;
 public class Product_API_Get {
     private String sku;
     private String TAG = "mTAG";
-    Product_API_Get(String k){
-        sku=k;
+
+    Product_API_Get(String k) {
+        sku = k;
     }
+
     public void search() {
-        String url = "https://api.wegmans.io/products/"+sku+"?api-version=2018-10-18";
+        String url = "https://api.wegmans.io/products/" + sku + "?api-version=2018-10-18";
 
         new AsyncHttpTask().execute(url);
     }
-        public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
 
-            @Override
-            protected Integer doInBackground(String... params) {
-                InputStream inputStream = null;
-                Integer result = 0;
-                try {
-                    /* create Apache HttpClient */
-                    HttpClient httpclient = new DefaultHttpClient();
+    public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
 
-                    /* HttpGet Method */
-                    HttpGet httpGet = new HttpGet(params[0]);
+        @Override
+        protected Integer doInBackground(String... params) {
+            InputStream inputStream = null;
+            Integer result = 0;
+            try {
+                /* create Apache HttpClient */
+                HttpClient httpclient = new DefaultHttpClient();
 
-                    /* optional request header */
-                    httpGet.setHeader("Subscription-Key", "67a0d0770def4b969250ffa89aa08180");
+                /* HttpGet Method */
+                HttpGet httpGet = new HttpGet(params[0]);
 
-                    /* Make http request call */
-                    HttpResponse httpResponse = httpclient.execute(httpGet);
+                /* optional request header */
+                httpGet.setHeader("Subscription-Key", "67a0d0770def4b969250ffa89aa08180");
 
-
-                    int statusCode = httpResponse.getStatusLine().getStatusCode();
-                    Log.d(TAG, statusCode+"");
-                    /* 200 represents HTTP OK */
-                    if (statusCode ==  200) {
-                        Log.d(TAG, "HTTP OK");
-
-                        /* receive response as inputStream */
-                        inputStream = httpResponse.getEntity().getContent();
-
-                        String response = convertInputStreamToString(inputStream);
-
-                        Log.d(TAG, response);
-                        result = 1; // Successful
-
-                    }else{
-                        result = 0; //"Failed to fetch data!";
-                    }
+                /* Make http request call */
+                HttpResponse httpResponse = httpclient.execute(httpGet);
 
 
-                } catch (Exception e) {
-                    Log.d(TAG, e.getLocalizedMessage());
+                int statusCode = httpResponse.getStatusLine().getStatusCode();
+                Log.d(TAG, statusCode + "");
+                /* 200 represents HTTP OK */
+                if (statusCode == 200) {
+                    Log.d(TAG, "HTTP OK");
+
+                    /* receive response as inputStream */
+                    inputStream = httpResponse.getEntity().getContent();
+
+                    String response = convertInputStreamToString(inputStream);
+
+                    Log.d(TAG, response);
+                    result = 1; // Successful
+
+                } else {
+                    result = 0; //"Failed to fetch data!";
                 }
 
-                return result; //"Failed to fetch data!";
+
+            } catch (Exception e) {
+                Log.d(TAG, e.getLocalizedMessage());
             }
 
+            return result; //"Failed to fetch data!";
         }
 
-        private String convertInputStreamToString(InputStream inputStream) throws IOException {
+    }
 
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+    private String convertInputStreamToString(InputStream inputStream) throws IOException {
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
         String line = "";
         String result = "";
 
-        while((line = bufferedReader.readLine()) != null){
+        while ((line = bufferedReader.readLine()) != null) {
             result += line;
         }
 
         /* Close Stream */
-        if(null!=inputStream){
+        if (null != inputStream) {
             inputStream.close();
         }
 
         return result;
     }
 
-        private void parseResult(String result) {
+    private void parseResult(String result) {
 
-        try{
+        try {
             JSONObject response = new JSONObject(result);
 
             JSONArray posts = response.optJSONArray("results");
             JSONObject results_obj = new JSONObject();
 
 
-
-            for(int i=0; i< posts.length();i++ ){
+            for (int i = 0; i < posts.length(); i++) {
                 JSONObject post = posts.optJSONObject(i);
                 String title = post.optString("title");
 
             }
 
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-    }
+}

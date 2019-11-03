@@ -19,6 +19,7 @@ import org.json.JSONObject;
 public class Wegmans_API_Search {
     private String query;
     private String TAG = "mTAG";
+    public ArrayList<String>
 
     Wegmans_API_Search(String q){
         query = q;
@@ -114,7 +115,9 @@ public class Wegmans_API_Search {
                 String name = obj.optString("name");
 
                 list.add(new Recipe(ID, name));
+
             }
+
         }catch (JSONException e){
             e.printStackTrace();
         }
