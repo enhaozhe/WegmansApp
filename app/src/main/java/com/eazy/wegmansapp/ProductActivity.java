@@ -24,6 +24,5 @@ public class ProductActivity extends AppCompatActivity {
         proget.search();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        image=findViewById();
 }
 }

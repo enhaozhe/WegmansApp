@@ -109,12 +109,11 @@ public class Product_API_Get {
             JSONObject response = new JSONObject(result);
             JSONObject d = new JSONObject(response.get("descriptions").toString());
             String description = d.get("consumer").toString();
-
             JSONArray link = new JSONArray(response.get("tradeIdentifiers").toString());
             JSONObject post = link.getJSONObject(0);
             JSONArray ll = new JSONArray(post.get("images").toString());
             String image = ll.getString(0);
-
+            item.name=response.get("name").toString();
             item.description = description;
             item.image = image;
         }catch(JSONException e){
