@@ -43,7 +43,7 @@ public class Wegmans_API_Search{
                 HttpGet httpGet = new HttpGet(params[0]);
 
                 /* optional request header */
-                httpGet.setHeader("Subscription-Key", "af921d54153b4c6584202a18436f7da6");
+                httpGet.setHeader("Subscription-Key", "67a0d0770def4b969250ffa89aa08180");
 
                 /* Make http request call */
                 HttpResponse httpResponse = httpclient.execute(httpGet);
