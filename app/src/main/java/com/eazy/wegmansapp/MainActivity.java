@@ -36,6 +36,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private String TAG = "mTAG";
+    private int count=0;
+    private boolean checker=false;
     private Wegmans_API_Search search;
     private Button searchFood_bt;
     private EditText food;
@@ -72,20 +74,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void doSearch() {
+       if(checker == true){
+           recipesList.clear();
+           checker=false;
+           count=0;
+       }
+       count++;
         inputFood = food.getText().toString();
         if(inputFood != ""){
-            search = new Wegmans_API_Search("beef", MainActivity.this);
-            search.search();
+            search = new Wegmans_API_Search(inputFood, MainActivity.this);
+            int x= search.search();
             if(recipesList.size() > 0) {
                 Log.d("mmTAG", "size = " + recipesList.size() + "");
                 adapter = new RecyclerViewAdapter(recipesList, this, MainActivity.this);
                 recyclerView.setAdapter(adapter);
-            }else{
-                Log.d("mmTAG", "gg");
+                checker=true;
             }
+            if(recipesList.size()==0 && count==2){
+                Toast toast = Toast.makeText(getApplicationContext(), "No Results Found", Toast.LENGTH_SHORT);
+                toast.show();
+                checker=true;
+                return;
+            }
+
         }else{
-            Toast toast = Toast.makeText(getApplicationContext(), "Please enter a valid food name!", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), "No Results Found", Toast.LENGTH_SHORT);
             toast.show();
+            return;
         }
     }
 }

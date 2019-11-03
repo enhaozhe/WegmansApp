@@ -70,6 +70,7 @@ public class Wegmans_API_Get_Recipes{
 
                 }else{
                     result = 0; //"Failed to fetch data!";
+                    return 0;
                 }
                 parseResult(response);
 
