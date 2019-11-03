@@ -113,8 +113,8 @@ public class Product_API_Get {
             JSONObject post= link.getJSONObject(0);
             JSONArray ll=new JSONArray(post.get("images").toString());
             image= ll.getString(0);
-            Log.d("mTAG",image);
-            return new Item(id,name,image,descr);
+           Log.d("mTAG",image);
+           return new Item(id,name,image,descr);
         }catch (JSONException e){
             e.printStackTrace();
         }
