@@ -6,24 +6,25 @@ public class Item implements Serializable {
 
     public int ID;
     public String name;
+    public String quanntity;
     public String image;
-    public String descrp;
-    //public String image = "https://www.wegmans.com/content/dam/wegmans/recipes/" + "first digit of ID" + "/" + ID + ".jpg";
+    public String description;
 
     public Item(String name){
         ID = -1;
         this.name = name;
     }
 
-    public Item(int ID, String name,String image,String descrp){
+    public Item(int ID, String name, String quantity){
         this.ID = ID;
         this.name = name;
-        this.image=image;
-        this.descrp=descrp;
     }
-    public Item(int ID, String name){
+
+    public Item(int ID, String name,String image,String description){
         this.ID = ID;
         this.name = name;
+        this.image = image;
+        this.description = description;
     }
 
     public boolean isProduct(){

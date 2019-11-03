@@ -10,10 +10,9 @@ public class Recipe implements Serializable {
 
     public int ID;
     public String name;
-    public int preparationTime;
-    public int cookingTime;
+    public String preparationTime;
+    public String cookingTime;
     public String servings;
-    public String servingSize;
     public ArrayList<String> nutrition;
     public ArrayList<Item> ingredients;
     public String instruction;
