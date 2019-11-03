@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -97,29 +99,26 @@ public class Wegmans_API_Search {
         return result;
     }
 
-    private void parseResult(String result) {
+    private ArrayList<Recipe> parseResult(String result) {
+
+        ArrayList<Recipe> list = new ArrayList<>();
 
         try{
             JSONObject response = new JSONObject(result);
             JSONArray posts = response.optJSONArray("results");
 
-            //JSONObject results_obj = posts.getJSONObject(0);
-            //JSONArray results_arr = results_obj.getJSONArray("id");
+            for(int i = 0; i < posts.length(); ++i){
+                JSONObject obj = posts.optJSONObject(i);
 
-            JSONObject s = posts.optJSONObject(0);
+                int ID = obj.optInt("id");
+                String name = obj.optString("name");
 
-            Log.d("mTAG", s.optString("id"));
-
-
-
-            for(int i=0; i< posts.length();i++ ){
-                JSONObject post = posts.optJSONObject(i);
-                String title = post.optString("title");
-
+                list.add(new Recipe(ID, name));
             }
-
         }catch (JSONException e){
             e.printStackTrace();
         }
+
+        return list;
     }
 }
