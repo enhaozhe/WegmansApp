@@ -18,15 +18,15 @@ import java.io.InputStreamReader;
 import java.util.concurrent.ExecutionException;
 
 public class Price_API_Get {
-    private String sku;
+    private Item item;
     private String TAG = "mTAG";
 
-    Price_API_Get(String k) {
-        sku = k;
+    public Price_API_Get(Item item) {
+        this.item = item;
     }
 
     public void search() {
-        String url = "https://api.wegmans.io/products/"+sku+"/prices/93?api-version=2018-10-18";
+        String url = "https://api.wegmans.io/products/"+item.ID+"/prices/93?api-version=2018-10-18";
 
         try {
             new AsyncHttpTask().execute(url).get();
@@ -104,12 +104,15 @@ public class Price_API_Get {
         return result;
     }
     private double parseResult(String result) {
-        double price=0;
+        double price = 0;
         try{
             JSONObject response = new JSONObject(result);
             //JSONArray posts = response.optJSONArray("");
-            price=Double.parseDouble(response.get("price").toString());
-            Log.d("mTAG",price+"");
+            price = Double.parseDouble(response.get("price").toString());
+
+            item.price = price;
+
+            Log.d("mTAG",price + "");
         }catch (JSONException e){
             e.printStackTrace();
         }

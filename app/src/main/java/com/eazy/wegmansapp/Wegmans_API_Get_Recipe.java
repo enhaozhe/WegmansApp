@@ -138,7 +138,6 @@ public class Wegmans_API_Get_Recipe {
 //                    "fat": 25,
 //                    "calories": 550,
 //                    "protein": 60
-            recipe.nutrition.add("Nutrition Facts");
             recipe.nutrition.add("Serving Size: " + nutri.optString("servingSize"));
             recipe.nutrition.add("Calories: " + nutri.optString("calories"));
             recipe.nutrition.add("Fat: " + nutri.optString("fat") + "g");
@@ -153,11 +152,11 @@ public class Wegmans_API_Get_Recipe {
             for(int i = 0; i < ingredients.length(); i++){
                 JSONObject obj = ingredients.getJSONObject(i);
                 String name = obj.get("name").toString();
+                String quantity = obj.optJSONObject("quantity").optString("text");
                 if(obj.get("type").toString().equals("ingredient")){
-                    recipe.ingredients.add(new Item(name));
+                    recipe.ingredients.add(new Item(name, quantity));
                 } else if(obj.get("type").toString().equals("product")){
                     int sku = obj.getInt("sku");
-                    String quantity = obj.optJSONObject("quantity").optString("text");
                     recipe.ingredients.add(new Item(sku, name, quantity));
                 }
             }
