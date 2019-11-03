@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Wegmans App</string>
+    <string name="Ingredients"><b>Ingredients:</b></string>
 </resources>

@@ -161,6 +161,9 @@ public class Wegmans_API_Get_Recipe {
                 }
             }
             recipe.instruction = response.optJSONObject("instructions").optString("directions");
+            JSONArray arr=new JSONArray(response.get("wellnessKeys").toString());
+            recipe.wellness=arr.get(0).toString();
+
           //  Log.d("TAG",recipe.instruction);
         }catch (JSONException e){
             e.printStackTrace();

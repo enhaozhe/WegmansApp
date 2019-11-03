@@ -22,7 +22,6 @@ public class Item implements Serializable {
         this.name = name;
         this.quantity = quantity;
     }
-
     public boolean isProduct(){
         return ID > 0;
     }

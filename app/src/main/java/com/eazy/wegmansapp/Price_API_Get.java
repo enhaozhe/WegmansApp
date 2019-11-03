@@ -109,9 +109,7 @@ public class Price_API_Get {
             JSONObject response = new JSONObject(result);
             //JSONArray posts = response.optJSONArray("");
             price = Double.parseDouble(response.get("price").toString());
-
             item.price = price;
-
             Log.d("mTAG",price + "");
         }catch (JSONException e){
             e.printStackTrace();
