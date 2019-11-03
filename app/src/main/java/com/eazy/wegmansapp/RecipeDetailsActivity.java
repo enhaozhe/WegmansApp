@@ -45,7 +45,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         nutrition.setText(recipe.getNutrition());
         prep_time.setText(recipe.preparationTime);
         cooking_time.setText(recipe.cookingTime);
-        instruction.setText(Html.fromHtml(recipe.instruction));
+        instruction.setText("Instruction: \n"+Html.fromHtml(recipe.instruction));
     }
 
     @Override
