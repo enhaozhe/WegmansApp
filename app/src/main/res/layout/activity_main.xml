@@ -19,12 +19,13 @@
             android:id="@+id/enterFood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter the food you want to eat." />
+            android:text="beef" />
 
         <Button
             android:id="@+id/search_bt"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:text="Search"/>
 
     </LinearLayout>
 

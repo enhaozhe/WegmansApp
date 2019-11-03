@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private View view;
     private ImageView recipe_img;
     private TextView recipe_name, recipe_ingredients;
-    private ArrayList<Recipe> recipesList;
+    public ArrayList<Recipe> recipesList;
     private String inputFood;
 
     @Override
@@ -59,13 +60,19 @@ public class MainActivity extends AppCompatActivity {
                 inputFood = food.getText().toString();
                 if(inputFood != ""){
                     search = new Wegmans_API_Search("beef", recipesList);
-                    search.search();
+                    recipesList = search.search();
+                }else{
+                    Toast toast = Toast.makeText(getApplicationContext(), "Please enter a valid food name!", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
-                Log.d(TAG, recipesList.get(0).name);
+                if(recipesList.size() != 0) {
+                    Log.d("mmTAG", "size = " + recipesList.size() + "");
+                }else{
+                    Log.d("mmTAG", "gg");
+                }
             }
         });
 
+
     }
-
-
 }
