@@ -59,6 +59,7 @@ public class Wegmans_API_Search{
                     inputStream = httpResponse.getEntity().getContent();
 
                     String response = convertInputStreamToString(inputStream);
+                    parseResult(response);
 
                     Log.d(TAG, response);
                     result = 1; // Successful
@@ -100,9 +101,14 @@ public class Wegmans_API_Search{
 
         try{
             JSONObject response = new JSONObject(result);
-
             JSONArray posts = response.optJSONArray("results");
-            JSONObject results_obj = new JSONObject();
+
+            //JSONObject results_obj = posts.getJSONObject(0);
+            //JSONArray results_arr = results_obj.getJSONArray("id");
+
+            JSONObject s = posts.optJSONObject(0);
+
+            Log.d("mTAG", s.optString("id"));
 
 
 
