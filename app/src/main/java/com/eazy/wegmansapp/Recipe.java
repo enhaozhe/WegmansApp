@@ -40,7 +40,7 @@ public class Recipe implements Serializable {
     public String getIngredients() {
         String ret = "Ingredients: \n";
         for(Item i : ingredients){
-            ret += "# " + ((i.isProduct())? i.quantity : "") + " " + i.name + "\n";
+            ret += "# " + ((i.quantity.equals("null"))? "" : i.quantity) + " " + i.name + "\n";
         }
         return ret;
     }
