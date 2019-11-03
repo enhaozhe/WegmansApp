@@ -152,15 +152,15 @@ public class Wegmans_API_Get_Recipe {
             for(int i = 0; i < ingredients.length(); i++){
                 JSONObject obj = ingredients.getJSONObject(i);
                 String name = obj.get("name").toString();
+                String quantity = obj.optJSONObject("quantity").optString("text");
                 if(obj.get("type").toString().equals("ingredient")){
-                    recipe.ingredients.add(new Item(name));
+                    recipe.ingredients.add(new Item(name, quantity));
                 } else if(obj.get("type").toString().equals("product")){
                     int sku = obj.getInt("sku");
-                    String quantity = obj.optJSONObject("quantity").optString("text");
                     recipe.ingredients.add(new Item(sku, name, quantity));
                 }
             }
-            recipe.instruction= response.optJSONObject("instructions").optString("directions");
+            recipe.instruction = response.optJSONObject("instructions").optString("directions");
           //  Log.d("TAG",recipe.instruction);
         }catch (JSONException e){
             e.printStackTrace();

@@ -19,7 +19,7 @@
             android:id="@+id/enterFood"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="beef"
+            android:hint="Enter Food"
             android:textAlignment="center"/>
 
         <Button
