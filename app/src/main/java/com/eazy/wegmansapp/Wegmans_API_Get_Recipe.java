@@ -107,21 +107,23 @@ public class Wegmans_API_Get_Recipe {
             JSONObject response = new JSONObject(result);
             recipe.servings = response.optJSONObject("servings").optString("produces");
 
+            Log.d("TAG",recipe.servings);
+
             int mins = response.optJSONObject("preparationTime").optInt("min");
             int hrs = mins / 60;
             mins = mins % 60;
             if( hrs != 0 )
-                recipe.preparationTime = "Preparation Time: " + hrs + " hours " + mins + "mins";
+                recipe.preparationTime = "Preparation Time: " + hrs + " hours " + mins + " mins";
             else
-                recipe.preparationTime = "Preparation Time: " + mins + "mins";
+                recipe.preparationTime = "Preparation Time: " + mins + " mins";
 
-            mins = response.optJSONObject("cookingTime").optInt("min");
+            mins = response.optJSONObject("cookingTime").optInt(" min");
             hrs = mins / 60;
             mins = mins % 60;
             if( hrs != 0 )
-                recipe.cookingTime = "Cooking Time: " + hrs + " hours " + mins + "mins";
+                recipe.cookingTime = "Cooking Time: " + hrs + " hours " + mins + " mins";
             else
-                recipe.cookingTime = "Cooking Time: " + mins + "mins";
+                recipe.cookingTime = "Cooking Time: " + mins + " mins";
 
             JSONObject nutri = response.optJSONObject("nutrition");
 //                    "sodium": 1030,
@@ -140,12 +142,12 @@ public class Wegmans_API_Get_Recipe {
             recipe.nutrition.add("Carbohydrate: " + nutri.optString("carbohydrates"));
             recipe.nutrition.add("Protein: " + nutri.optString("protein"));
 
-            JSONArray ingredients = response.optJSONArray("ingredient");
+            JSONArray ingredients = response.optJSONArray("ingredients");
             for(int i = 0; i < ingredients.length(); i++){
                 JSONObject obj = ingredients.getJSONObject(i);
                 String name = obj.optString("name");
 
-                if(obj.optString("type").equals("ingredients")){
+                if(obj.optString("type").equals("ingredient")){
                     recipe.ingredients.add(new Item(name));
                 } else if(obj.optString("type").equals("product")){
                     int sku = obj.optInt("sku");
