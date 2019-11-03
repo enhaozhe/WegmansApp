@@ -1,12 +1,26 @@
 package com.eazy.wegmansapp;
+import com.eazy.wegmansapp.DiscountNotification;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+//import android.support.v4.app.NotificationCompat;
+//import androidx.appcompat.app.NotificationCompat
+//import android.support.v4.app.NotificationManagerCompat;
+
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,7 +47,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private String TAG = "mTAG";
@@ -52,10 +68,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerViewAdapter adapter;
     private TextView wellness;
 
+    //notification
+    private NotificationManagerCompat notificationManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //notification
+        notificationManager = NotificationManagerCompat.from(this);
+
         Wegmans_API_Get_Recipe x=new Wegmans_API_Get_Recipe(new Recipe(20402,"Slow-Cooked Sunday Sauce"));
         x.search();
 
@@ -102,5 +125,37 @@ public class MainActivity extends AppCompatActivity {
             toast.show();
             return;
         }
+
+        //Notification
+//        try {
+//            Thread.sleep(10);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        createNotification();
+
+    }
+
+    private void createNotification() {
+        byte[] array = new byte[7]; // length is bounded by 7
+        new Random().nextBytes(array);
+        String random = new String(array, Charset.forName("UTF-8"));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(random, "Channel 1", NotificationManager.IMPORTANCE_DEFAULT);
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        Notification notification = new NotificationCompat.Builder(this, random)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Food OnSale")
+                .setContentText(inputFood+" has 50% off, ONLY TODAY")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                //.setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+
+        notificationManager.notify(1, notification);
     }
 }
