@@ -47,12 +47,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             ingredients += ing == ingList.get(ingList.size()-1) ? "" : ", ";
         }
         myViewHolder.name.setText(recipesList.get(i).name);
-        myViewHolder.ingredients.setText(ingredients);
-        ImageView imageView = myViewHolder.img;
-        String imageUrl = ingList.get(i).image;
+        //myViewHolder.ingredients.setText(ingredients);
+        //ImageView imageView = myViewHolder.img;
+        //String imageUrl = ingList.get(i).image;
 
         //Loading image using Picasso
-        Picasso.get().load(imageUrl).into(imageView);
+        //Picasso.get().load(imageUrl).into(imageView);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView name;
-        private TextView ingredients;
+        //private TextView ingredients;
         private LinearLayout linearLayout;
         private MainActivity mainActivity;
         private ImageView img;
@@ -73,7 +73,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             this.mainActivity = mainActivity;
             name = itemView.findViewById(R.id.recipe_name);
-            ingredients = itemView.findViewById(R.id.recipe_ingredients);
+            //ingredients = itemView.findViewById(R.id.recipe_ingredients);
             img = itemView.findViewById(R.id.recipe_img);
             linearLayout = itemView.findViewById(R.id.recipe_l_layout);
             linearLayout.setOnClickListener(this);
