@@ -48,11 +48,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
         myViewHolder.name.setText(recipesList.get(i).name);
         //myViewHolder.ingredients.setText(ingredients);
-        //ImageView imageView = myViewHolder.img;
-        //String imageUrl = ingList.get(i).image;
+        ImageView imageView = myViewHolder.img;
+        String imageUrl = recipesList.get(i).image;
 
         //Loading image using Picasso
-        //Picasso.get().load(imageUrl).into(imageView);
+        Picasso.get().load(imageUrl).into(imageView);
     }
 
     @Override
