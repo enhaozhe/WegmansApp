@@ -57,7 +57,7 @@ public class Product_API_Get {
                         inputStream = httpResponse.getEntity().getContent();
 
                         String response = convertInputStreamToString(inputStream);
-
+                        parseResult(response);
                         Log.d(TAG, response);
                         result = 1; // Successful
 
@@ -94,24 +94,30 @@ public class Product_API_Get {
         return result;
     }
 
-        private void parseResult(String result) {
-
+        private Item parseResult(String result) {
+            String name="";
+            int id=0;
+            String image="";
+            String descr="";
         try{
             JSONObject response = new JSONObject(result);
-
-            JSONArray posts = response.optJSONArray("results");
-            JSONObject results_obj = new JSONObject();
-
-
-
-            for(int i=0; i< posts.length();i++ ){
-                JSONObject post = posts.optJSONObject(i);
-                String title = post.optString("title");
-
-            }
-
+            //JSONArray posts = response.optJSONArray("");
+             id = Integer.parseInt(response.get("sku").toString());
+            Log.d("mTAG", id+"");
+             name=response.get("name").toString();
+            Log.d("mTAG", name);
+            JSONObject d=new JSONObject(response.get("descriptions").toString());
+            descr=d.get("consumer").toString();
+            Log.d("mTAG",descr);
+            JSONArray link=new JSONArray(response.get("tradeIdentifiers").toString());
+            JSONObject post= link.getJSONObject(0);
+            JSONArray ll=new JSONArray(post.get("images").toString());
+            image= ll.getString(0);
+            Log.d("mTAG",image);
+            return new Item(id,name,image,descr);
         }catch (JSONException e){
             e.printStackTrace();
         }
+        return new Item(id,name,image,descr);
     }
     }

@@ -3,6 +3,7 @@ package com.eazy.wegmansapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
     private String TAG = "mTAG";
@@ -12,8 +13,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Product_API_Get search = new Product_API_Get("11914");
-        search.search();
+       Price_API_Get x=new Price_API_Get("151853");
+        x.search();
     }
 
 
