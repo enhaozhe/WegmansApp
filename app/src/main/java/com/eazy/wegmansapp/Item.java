@@ -11,9 +11,10 @@ public class Item implements Serializable {
     public String description;
     public double price;
 
-    public Item(String name){
+    public Item(String name, String quantity){
         ID = -1;
         this.name = name;
+        this.quantity = quantity;
     }
 
     public Item(int ID, String name, String quantity){
