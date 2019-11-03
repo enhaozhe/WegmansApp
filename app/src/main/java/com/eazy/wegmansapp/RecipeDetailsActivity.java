@@ -1,16 +1,18 @@
 package com.eazy.wegmansapp;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
+
 import com.squareup.picasso.Picasso;
 
-public class RecipeDetailsActivity extends Activity {
+public class RecipeDetailsActivity extends AppCompatActivity {
     private ImageView img;
     private TextView name, ingredients, servings, nutrition, prep_time, cooking_time,  instruction;
     @Override
@@ -24,6 +26,9 @@ public class RecipeDetailsActivity extends Activity {
         Wegmans_API_Get_Recipe get_recipes = new Wegmans_API_Get_Recipe(recipe);
         get_recipes.search();
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
         img = findViewById(R.id.img);
         name = findViewById(R.id.recipe_name_input);
         ingredients = findViewById(R.id.recipe_ingredients_input);
@@ -36,11 +41,21 @@ public class RecipeDetailsActivity extends Activity {
         Picasso.get().load(recipe.image).into(img);
         name.setText(recipe.name);
         ingredients.setText(recipe.getIngredients());
-        servings.setText(recipe.servings);
+        servings.setText(recipe.servings == "null" ? "No Servings Info" : recipe.servings);
         nutrition.setText(recipe.getNutrition());
         prep_time.setText(recipe.preparationTime);
         cooking_time.setText(recipe.cookingTime);
         instruction.setText(Html.fromHtml(recipe.instruction));
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
