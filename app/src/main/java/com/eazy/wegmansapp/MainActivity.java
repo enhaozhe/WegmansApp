@@ -1,6 +1,8 @@
 package com.eazy.wegmansapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView recipe_name, recipe_ingredients;
     public ArrayList<Recipe> recipesList;
     private String inputFood;
+    private RecyclerView recyclerView;
+    private RecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,26 +57,35 @@ public class MainActivity extends AppCompatActivity {
 
         searchFood_bt = findViewById(R.id.search_bt);
         food = findViewById(R.id.enterFood);
+        recyclerView = findViewById(R.id.recipes_recycle_view);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
 
         searchFood_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputFood = food.getText().toString();
-                if(inputFood != ""){
-                    search = new Wegmans_API_Search("beef", recipesList);
-                    recipesList = search.search();
-                }else{
-                    Toast toast = Toast.makeText(getApplicationContext(), "Please enter a valid food name!", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-                if(recipesList.size() != 0) {
-                    Log.d("mmTAG", "size = " + recipesList.size() + "");
-                }else{
-                    Log.d("mmTAG", "gg");
-                }
+                doSearch();
             }
         });
+    }
 
-
+    public void doSearch() {
+        inputFood = food.getText().toString();
+        if(inputFood != ""){
+            search = new Wegmans_API_Search("beef", MainActivity.this);
+            search.search();
+            if(recipesList.size() > 0) {
+                Log.d("mmTAG", "size = " + recipesList.size() + "");
+                adapter = new RecyclerViewAdapter(recipesList, this, MainActivity.this);
+                recyclerView.setAdapter(adapter);
+            }else{
+                Log.d("mmTAG", "gg");
+            }
+        }else{
+            Toast toast = Toast.makeText(getApplicationContext(), "Please enter a valid food name!", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 }

@@ -20,18 +20,19 @@ public class Wegmans_API_Search {
     private String query;
     private String TAG = "mTAG";
     private ArrayList<Recipe> list;
+    MainActivity mainActivity;
 
-    Wegmans_API_Search(String q, ArrayList<Recipe> list){
+    Wegmans_API_Search(String q, MainActivity mainActivity){
         query = q;
-        this.list = list;
+        this.mainActivity = mainActivity;
     }
 
-    public ArrayList<Recipe> search()
+    public void search()
     {
         String url = "https://api.wegmans.io/meals/recipes/search?query=" + query + "&api-version=2018-10-18";
 
         new AsyncHttpTask().execute(url);
-        return list;
+
     }
 
     public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
@@ -103,7 +104,6 @@ public class Wegmans_API_Search {
     }
 
     private void parseResult(String result) {
-
         try{
             JSONObject response = new JSONObject(result);
             JSONArray posts = response.optJSONArray("results");
@@ -114,7 +114,7 @@ public class Wegmans_API_Search {
                 int ID = obj.optInt("id");
                 String name = obj.optString("name");
 
-                list.add(new Recipe(ID, name));
+                mainActivity.recipesList.add(new Recipe(ID, name));
 
             }
 
