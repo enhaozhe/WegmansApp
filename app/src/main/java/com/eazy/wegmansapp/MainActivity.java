@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        search = new Wegmans_API_Search("beef");
+        Product_API_Search search = new Product_API_Search("11914");
         search.search();
     }
 
