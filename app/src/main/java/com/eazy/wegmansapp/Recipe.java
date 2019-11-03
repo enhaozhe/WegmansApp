@@ -36,12 +36,4 @@ public class Recipe implements Serializable {
         }
         return ret;
     }
-
-    public String getIngredients() {
-        String ret = "Ingredients: \n";
-        for(Item i : ingredients){
-            ret += "# " + ((i.quantity.equals("null"))? "" : i.quantity) + " " + i.name + "\n";
-        }
-        return ret;
-    }
 }

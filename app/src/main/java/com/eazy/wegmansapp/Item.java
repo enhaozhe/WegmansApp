@@ -14,6 +14,7 @@ public class Item implements Serializable {
     public Item(String name){
         ID = -1;
         this.name = name;
+        this.quantity = "null";
     }
 
     public Item(int ID, String name, String quantity){
