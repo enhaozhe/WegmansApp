@@ -147,12 +147,12 @@ public class Wegmans_API_Get_Recipe {
             recipe.nutrition.add("Carbohydrate: " + nutri.optString("carbohydrates"));
             recipe.nutrition.add("Protein: " + nutri.optString("protein"));
 
-            JSONArray ingredients = response.optJSONArray("ingredient");
+            JSONArray ingredients = response.optJSONArray("ingredients");
             for(int i = 0; i < ingredients.length(); i++){
                 JSONObject obj = ingredients.getJSONObject(i);
                 String name = obj.optString("name");
 
-                if(obj.optString("type").equals("ingredients")){
+                if(obj.optString("type").equals("ingredient")){
                     recipe.ingredients.add(new Item(name));
                 } else if(obj.optString("type").equals("product")){
                     int sku = obj.optInt("sku");
