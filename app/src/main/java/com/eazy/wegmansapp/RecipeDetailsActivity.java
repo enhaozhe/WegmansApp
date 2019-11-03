@@ -36,9 +36,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final Recipe recipe = (Recipe) intent.getSerializableExtra("Recipe");
 
-        Wegmans_API_Get_Recipe get_recipes = new Wegmans_API_Get_Recipe(recipe);
-        get_recipes.search();
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 

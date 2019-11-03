@@ -37,17 +37,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-
-        ArrayList<Item> ingList = recipesList.get(i).ingredients;
-        String ingredients = "";
-        //Adding all the ingredients into one array, seperated by commas
-        for(Item ing : ingList){
-            ingredients += ing.name;
-            //add comma if it is not last ingredient
-            ingredients += ing == ingList.get(ingList.size()-1) ? "" : ", ";
-        }
+        Wegmans_API_Get_Recipe get_recipes = new Wegmans_API_Get_Recipe(recipesList.get(i));
+        get_recipes.search();
+        myViewHolder.wellness.setText(recipesList.get(i).wellness);
         myViewHolder.name.setText(recipesList.get(i).name);
-        //myViewHolder.ingredients.setText(ingredients);
         ImageView imageView = myViewHolder.img;
         String imageUrl = recipesList.get(i).image;
 
@@ -63,7 +56,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView name;
-        //private TextView ingredients;
+        private TextView wellness;
         private LinearLayout linearLayout;
         private MainActivity mainActivity;
         private ImageView img;
@@ -73,7 +66,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             this.mainActivity = mainActivity;
             name = itemView.findViewById(R.id.recipe_name);
-            //ingredients = itemView.findViewById(R.id.recipe_ingredients);
+            wellness = itemView.findViewById(R.id.wellness);
             img = itemView.findViewById(R.id.recipe_img);
             linearLayout = itemView.findViewById(R.id.recipe_l_layout);
             linearLayout.setOnClickListener(this);
