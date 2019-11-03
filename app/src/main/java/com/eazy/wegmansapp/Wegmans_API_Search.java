@@ -20,6 +20,7 @@ public class Wegmans_API_Search {
     private String query;
     private String TAG = "mTAG";
     private ArrayList<Recipe> list;
+    private int checker=2;
     MainActivity mainActivity;
 
     Wegmans_API_Search(String q, MainActivity mainActivity){
@@ -68,7 +69,6 @@ public class Wegmans_API_Search {
 
                     Log.d(TAG, response);
                     result = 1; // Successful
-
                 }else{
                     result = 0; //"Failed to fetch data!";
                 }
@@ -106,15 +106,12 @@ public class Wegmans_API_Search {
         try{
             JSONObject response = new JSONObject(result);
             JSONArray posts = response.optJSONArray("results");
-
             for(int i = 0; i < posts.length(); ++i){
                 JSONObject obj = posts.optJSONObject(i);
 
                 int ID = obj.optInt("id");
                 String name = obj.optString("name");
-
                 mainActivity.recipesList.add(new Recipe(ID, name));
-
             }
 
         }catch (JSONException e){
