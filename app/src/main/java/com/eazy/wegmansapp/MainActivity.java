@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Wegmans_API_Get_Recipe x=new Wegmans_API_Get_Recipe(new Recipe(20402,"Slow-Cooked Sunday Sauce"));
+        x.search();
 
         recipesList = new ArrayList<>();
 
