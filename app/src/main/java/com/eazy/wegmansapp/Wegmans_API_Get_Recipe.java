@@ -138,7 +138,6 @@ public class Wegmans_API_Get_Recipe {
 //                    "fat": 25,
 //                    "calories": 550,
 //                    "protein": 60
-            recipe.nutrition.add("Nutrition Facts");
             recipe.nutrition.add("Serving Size: " + nutri.optString("servingSize"));
             recipe.nutrition.add("Calories: " + nutri.optString("calories"));
             recipe.nutrition.add("Fat: " + nutri.optString("fat") + "g");

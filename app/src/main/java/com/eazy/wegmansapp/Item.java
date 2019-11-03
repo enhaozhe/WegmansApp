@@ -6,7 +6,7 @@ public class Item implements Serializable {
 
     public int ID;
     public String name;
-    public String quanntity;
+    public String quantity;
     public String image;
     public String description;
 
@@ -18,6 +18,7 @@ public class Item implements Serializable {
     public Item(int ID, String name, String quantity){
         this.ID = ID;
         this.name = name;
+        this.quantity = quantity;
     }
 
     public Item(int ID, String name,String image,String description){

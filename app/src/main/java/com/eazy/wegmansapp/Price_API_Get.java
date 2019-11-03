@@ -21,7 +21,7 @@ public class Price_API_Get {
     private String sku;
     private String TAG = "mTAG";
 
-    Price_API_Get(String k) {
+    public Price_API_Get(String k) {
         sku = k;
     }
 
