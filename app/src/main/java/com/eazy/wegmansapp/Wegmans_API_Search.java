@@ -101,7 +101,9 @@ public class Wegmans_API_Search{
         try{
             JSONObject response = new JSONObject(result);
 
-            JSONArray posts = response.optJSONArray("posts");
+            JSONArray posts = response.optJSONArray("results");
+            JSONObject results_obj = new JSONObject();
+
 
 
             for(int i=0; i< posts.length();i++ ){
