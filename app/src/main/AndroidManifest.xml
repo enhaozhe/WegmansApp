@@ -23,6 +23,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.eazy.wegmansapp.MainActivity" />
         </activity>
+
+        <activity android:name=".ProductActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.eazy.wegmansapp.MainActivity" />
+        </activity>
         <uses-library
             android:name="org.apache.httpcomponents.client5"
             android:required="false" />
