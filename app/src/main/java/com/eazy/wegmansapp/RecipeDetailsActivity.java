@@ -26,8 +26,9 @@ import java.util.List;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
     private ImageView img;
-    private TextView name, ingredients, servings, nutrition, prep_time, cooking_time,  instruction;
+    private TextView name, nutrition, prep_time, cooking_time,  instruction, aprox_cost;
     private ListView listView;
+    private double apx_cost;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,17 +42,20 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         img = findViewById(R.id.img);
         name = findViewById(R.id.recipe_name_input);
-        servings = findViewById(R.id.recipe_servings_input);
         nutrition = findViewById(R.id.recipe_nutrition_input);
         prep_time = findViewById(R.id.prep_time_input);
         cooking_time = findViewById(R.id.cooking_time_input);
         instruction = findViewById(R.id.recipe_instruction_input);
+        aprox_cost = findViewById(R.id.aprox_cost);
 
         listView = findViewById(R.id.ingredients_list);
         final ArrayList<Item> Items = recipe.ingredients;
         ArrayList<String> values = new ArrayList<>();
         for(Item i : Items){
             values.add(i.name);
+            Price_API_Get p =new Price_API_Get(i);
+            p.search();
+            apx_cost += i.price;
         }
         myAdapter itemsAdapter =
                 new myAdapter(this, values);
@@ -74,12 +78,11 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         Picasso.get().load(recipe.image).into(img);
         name.setText(recipe.name);
-        servings.setText(recipe.servings == "null" ? "No Servings Info" : recipe.servings);
         nutrition.setText(recipe.getNutrition());
         prep_time.setText(recipe.preparationTime);
         cooking_time.setText(recipe.cookingTime);
         instruction.setText(Html.fromHtml(recipe.instruction));
-
+        aprox_cost.setText("Approximated Price: $"+Math.round(apx_cost)+"");
     }
 
     @Override

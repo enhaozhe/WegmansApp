@@ -97,21 +97,6 @@
                     android:layout_marginBottom="5dp">
 
                     <TextView
-                        android:id="@+id/recipe_servings_input"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="test"
-                        android:textSize="15sp" />
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp">
-
-                    <TextView
                         android:id="@+id/recipe_nutrition_input"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -161,6 +146,19 @@
                         android:textSize="15sp" />
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:id="@+id/aprox_cost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="test"
+                        android:textSize="15sp" />
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
