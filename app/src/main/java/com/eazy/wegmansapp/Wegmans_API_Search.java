@@ -28,12 +28,11 @@ public class Wegmans_API_Search {
         this.mainActivity = mainActivity;
     }
 
-    public int search()
+    public void search()
     {
         String url = "https://api.wegmans.io/meals/recipes/search?query=" + query + "&api-version=2018-10-18";
 
         new AsyncHttpTask().execute(url);
-        return checker;
     }
 
     public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
@@ -107,9 +106,6 @@ public class Wegmans_API_Search {
         try{
             JSONObject response = new JSONObject(result);
             JSONArray posts = response.optJSONArray("results");
-            if(posts.length()==0){
-                checker=0;
-            }
             for(int i = 0; i < posts.length(); ++i){
                 JSONObject obj = posts.optJSONObject(i);
 

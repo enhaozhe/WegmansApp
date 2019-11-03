@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         inputFood = food.getText().toString();
         if(inputFood != ""){
             search = new Wegmans_API_Search(inputFood, MainActivity.this);
-            int x= search.search();
+             search.search();
             if(recipesList.size() > 0) {
                 Log.d("mmTAG", "size = " + recipesList.size() + "");
                 adapter = new RecyclerViewAdapter(recipesList, this, MainActivity.this);
