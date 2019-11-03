@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -32,7 +33,16 @@ public class Wegmans_API_Search {
     {
         String url = "https://api.wegmans.io/meals/recipes/search?query=" + query + "&api-version=2018-10-18";
 
-        new AsyncHttpTask().execute(url);
+        //new AsyncHttpTask().execute(url);
+        try {
+            //ap.get(); // get some result
+            new AsyncHttpTask().execute(url).get();
+            //ap.wait(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
