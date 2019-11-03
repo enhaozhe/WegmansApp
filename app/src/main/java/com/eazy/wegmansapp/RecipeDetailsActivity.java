@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,7 +40,7 @@ public class RecipeDetailsActivity extends Activity {
         nutrition.setText(recipe.getNutrition());
         prep_time.setText(recipe.preparationTime);
         cooking_time.setText(recipe.cookingTime);
-        instruction.setText(recipe.instruction);
+        instruction.setText(Html.fromHtml(recipe.instruction));
     }
 
 }
