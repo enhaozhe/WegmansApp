@@ -12,8 +12,9 @@ public class Recipe implements Serializable {
     public String servings;
     public ArrayList<String> nutrition;
     public ArrayList<Item> ingredients;
-    public String instruction;
+    public String instruction="";
     public String image;
+    public String wellness="";
 
     public Recipe(int ID, String name) {
         this.ID = ID;
@@ -33,6 +34,14 @@ public class Recipe implements Serializable {
         String ret = "Nutrition Facts \n";
         for(String i : nutrition){
             ret += i + "\n";
+        }
+        return ret;
+    }
+
+    public String getIngredients() {
+        String ret = "Ingredients: \n";
+        for(Item i : ingredients){
+            ret += "# " + ((i.quantity.equals("null"))? "" : i.quantity) + " " + i.name + "\n";
         }
         return ret;
     }
