@@ -160,7 +160,7 @@ public class Wegmans_API_Get_Recipe {
                     recipe.ingredients.add(new Item(sku, name, quantity));
                 }
             }
-           String html= response.optJSONObject("instructions").optString("directions");
+            recipe.instruction = response.optJSONObject("instructions").optString("directions");
           //  Log.d("TAG",recipe.instruction);
         }catch (JSONException e){
             e.printStackTrace();
