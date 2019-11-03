@@ -106,7 +106,7 @@ public class Wegmans_API_Get_Recipe {
         try{
             JSONObject response = new JSONObject(result);
             recipe.servings = response.optJSONObject("servings").optString("produces");
-
+           // Log.d("TAG",recipe.servings);
             int mins = response.optJSONObject("preparationTime").optInt("min");
             int hrs = mins / 60;
             mins = mins % 60;
@@ -114,7 +114,7 @@ public class Wegmans_API_Get_Recipe {
                 recipe.preparationTime = "Preparation Time: " + hrs + " hours " + mins + "mins";
             else
                 recipe.preparationTime = "Preparation Time: " + mins + "mins";
-
+           // Log.d("TAG",recipe.preparationTime);
             mins = response.optJSONObject("cookingTime").optInt("min");
             hrs = mins / 60;
             mins = mins % 60;
@@ -122,7 +122,7 @@ public class Wegmans_API_Get_Recipe {
                 recipe.cookingTime = "Cooking Time: " + hrs + " hours " + mins + "mins";
             else
                 recipe.cookingTime = "Cooking Time: " + mins + "mins";
-
+            Log.d("TAG",recipe.cookingTime);
             JSONObject nutri = response.optJSONObject("nutrition");
 //                    "sodium": 1030,
 //                    "carbohydrates": 20,
@@ -139,23 +139,22 @@ public class Wegmans_API_Get_Recipe {
             recipe.nutrition.add("Sodium: " + nutri.optString("sodium"));
             recipe.nutrition.add("Carbohydrate: " + nutri.optString("carbohydrates"));
             recipe.nutrition.add("Protein: " + nutri.optString("protein"));
-
-            JSONArray ingredients = response.optJSONArray("ingredient");
+           // Log.d("TAG",recipe.nutrition.get(0));
+            JSONArray ingredients = new JSONArray(response.get("ingredients").toString());
+           // Log.d("TAG",ingredients.toString());
             for(int i = 0; i < ingredients.length(); i++){
                 JSONObject obj = ingredients.getJSONObject(i);
-                String name = obj.optString("name");
-
-                if(obj.optString("type").equals("ingredients")){
+                String name = obj.get("name").toString();
+                if(obj.get("type").toString().equals("ingredient")){
                     recipe.ingredients.add(new Item(name));
-                } else if(obj.optString("type").equals("product")){
-                    int sku = obj.optInt("sku");
+                } else if(obj.get("type").toString().equals("product")){
+                    int sku = obj.getInt("sku");
                     String quantity = obj.optJSONObject("quantity").optString("text");
                     recipe.ingredients.add(new Item(sku, name, quantity));
                 }
             }
-
             recipe.instruction = response.optJSONObject("instructions").optString("directions");
-
+          //  Log.d("TAG",recipe.instruction);
         }catch (JSONException e){
             e.printStackTrace();
         }
