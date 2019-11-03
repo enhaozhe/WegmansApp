@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 public class MainActivity extends AppCompatActivity {
     private String TAG = "mTAG";
     private Wegmans_API_Search search;
+    private Wegmans_API_Get_Recipes search2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         search = new Wegmans_API_Search("beef");
         search.search();
+        search2 = new Wegmans_API_Get_Recipes("7482");
+        search2.search();
     }
 
 

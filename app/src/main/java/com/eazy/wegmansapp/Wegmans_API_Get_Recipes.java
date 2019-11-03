@@ -14,17 +14,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Wegmans_API_Search{
+public class Wegmans_API_Get_Recipes{
     private String query;
     private String TAG = "mTAG";
 
-    Wegmans_API_Search(String q){
+    Wegmans_API_Get_Recipes(String q){
         query = q;
     }
 
     public void search()
     {
-        String url = "https://api.wegmans.io/meals/recipes/search?query=" + query +"&api-version=2018-10-18";
+        String url = "https://api.wegmans.io/meals/recipes/"+query+"?api-version=2018-10-18";
 
         new AsyncHttpTask().execute(url);
     }
