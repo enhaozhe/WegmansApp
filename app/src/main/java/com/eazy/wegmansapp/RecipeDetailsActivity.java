@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
     private ImageView img;
-    private TextView name, ingredients, servings, nutrition, prep_time, cooking_time,  instruction;
+    private TextView name,wellness, ingredients, servings, nutrition, prep_time, cooking_time,  instruction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +30,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         img = findViewById(R.id.img);
+        wellness=findViewById(R.id.wellness);
         name = findViewById(R.id.recipe_name_input);
         ingredients = findViewById(R.id.recipe_ingredients_input);
         servings = findViewById(R.id.recipe_servings_input);
@@ -39,6 +40,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         instruction = findViewById(R.id.recipe_instruction_input);
 
         Picasso.get().load(recipe.image).into(img);
+        wellness.setText(recipe.wellness);
         name.setText(recipe.name);
         ingredients.setText(recipe.getIngredients());
         servings.setText(recipe.servings == "null" ? "No Servings Info" : recipe.servings);

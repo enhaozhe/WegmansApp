@@ -27,6 +27,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private String inputFood;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
+    private TextView wellness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +60,10 @@ public class MainActivity extends AppCompatActivity {
         x.search();
 
         recipesList = new ArrayList<>();
-
+        //wellness= findViewById(R.id.wellness);
         searchFood_bt = findViewById(R.id.search_bt);
         food = findViewById(R.id.enterFood);
         recyclerView = findViewById(R.id.recipes_recycle_view);
-
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
