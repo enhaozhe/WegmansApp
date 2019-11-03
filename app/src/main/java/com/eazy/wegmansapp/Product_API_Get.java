@@ -1,12 +1,7 @@
 package com.eazy.wegmansapp;
+
 import android.os.AsyncTask;
 import android.util.Log;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -16,19 +11,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Wegmans_API_Search {
-    private String query;
-    private String TAG = "mTAG";
-    private ArrayList<Recipe> list;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
-    Wegmans_API_Search(String q, ArrayList<Recipe> list){
-        query = q;
-        this.list = list;
+public class Product_API_Get {
+    private String sku;
+    private String TAG = "mTAG";
+
+    Product_API_Get(String k) {
+        sku = k;
     }
 
-    public void search()
-    {
-        String url = "https://api.wegmans.io/meals/recipes/search?query=" + query +"&api-version=2018-10-18";
+    public void search() {
+        String url = "https://api.wegmans.io/products/" + sku + "?api-version=2018-10-18";
 
         new AsyncHttpTask().execute(url);
     }
@@ -54,21 +51,20 @@ public class Wegmans_API_Search {
 
 
                 int statusCode = httpResponse.getStatusLine().getStatusCode();
-                Log.d(TAG, statusCode+"");
+                Log.d(TAG, statusCode + "");
                 /* 200 represents HTTP OK */
-                if (statusCode ==  200) {
+                if (statusCode == 200) {
                     Log.d(TAG, "HTTP OK");
 
                     /* receive response as inputStream */
                     inputStream = httpResponse.getEntity().getContent();
 
                     String response = convertInputStreamToString(inputStream);
-                    parseResult(response);
 
                     Log.d(TAG, response);
                     result = 1; // Successful
 
-                }else{
+                } else {
                     result = 0; //"Failed to fetch data!";
                 }
 
@@ -84,43 +80,40 @@ public class Wegmans_API_Search {
 
     private String convertInputStreamToString(InputStream inputStream) throws IOException {
 
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
         String line = "";
         String result = "";
 
-        while((line = bufferedReader.readLine()) != null){
+        while ((line = bufferedReader.readLine()) != null) {
             result += line;
         }
 
         /* Close Stream */
-        if(null!=inputStream){
+        if (null != inputStream) {
             inputStream.close();
         }
 
         return result;
     }
 
-    private ArrayList<Recipe> parseResult(String result) {
-        
-        try{
+    private void parseResult(String result) {
+
+        try {
             JSONObject response = new JSONObject(result);
+
             JSONArray posts = response.optJSONArray("results");
+            JSONObject results_obj = new JSONObject();
 
-            for(int i = 0; i < posts.length(); ++i){
-                JSONObject obj = posts.optJSONObject(i);
 
-                int ID = obj.optInt("id");
-                String name = obj.optString("name");
-
-                list.add(new Recipe(ID, name));
+            for (int i = 0; i < posts.length(); i++) {
+                JSONObject post = posts.optJSONObject(i);
+                String title = post.optString("title");
 
             }
 
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        return list;
     }
 }

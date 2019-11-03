@@ -29,6 +29,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private String TAG = "mTAG";
@@ -39,19 +40,31 @@ public class MainActivity extends AppCompatActivity {
     private View view;
     private ImageView recipe_img;
     private TextView recipe_name, recipe_ingredients;
+    private ArrayList<Recipe> recipesList;
+    private String inputFood;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String name = "beef";
-        String ingredients = "test ingredients";
+        recipesList = new ArrayList<>();
 
         searchFood_bt = findViewById(R.id.search_bt);
         food = findViewById(R.id.enterFood);
-        search = new Wegmans_API_Search("beef");
-        search.search();
+
+        searchFood_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputFood = food.getText().toString();
+                if(inputFood != ""){
+                    search = new Wegmans_API_Search("beef", recipesList);
+                    search.search();
+                }
+                Log.d(TAG, recipesList.get(0).name);
+            }
+        });
+
     }
 
 
